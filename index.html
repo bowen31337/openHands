@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenHands Software Agent SDK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            color: #080808;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(#E5E7EB 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .code-line {
+            padding: 0 1rem;
+            display: block;
+        }
+
+        .code-line:hover {
+            background-color: #2d2d2d;
+        }
+
+        .token-keyword {
+            color: #569cd6;
+        }
+
+        .token-string {
+            color: #ce9178;
+        }
+
+        .token-function {
+            color: #dcdcaa;
+        }
+
+        .token-class {
+            color: #4ec9b0;
+        }
+
+        .token-comment {
+            color: #6a9955;
+        }
+
+        /* Smooth fade for interactive elements */
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .fade-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #080808;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+    <style>
+        *,
+        ::before,
+        ::after {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+            --tw-contain-size: ;
+            --tw-contain-layout: ;
+            --tw-contain-paint: ;
+            --tw-contain-style:
+        }
+
+        ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+            --tw-contain-size: ;
+            --tw-contain-layout: ;
+            --tw-contain-paint: ;
+            --tw-contain-style:
+        }
+
+        /* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #e5e7eb
+        }
+
+        ::after,
+        ::before {
+            --tw-content: ''
+        }
+
+        :host,
+        html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -moz-tab-size: 4;
+            tab-size: 4;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        body {
+            margin: 0;
+            line-height: inherit
+        }
+
+        hr {
+            height: 0;
+            color: inherit;
+            border-top-width: 1px
+        }
+
+        abbr:where([title]) {
+            -webkit-text-decoration: underline dotted;
+            text-decoration: underline dotted
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: inherit;
+            font-weight: inherit
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+
+        b,
+        strong {
+            font-weight: bolder
+        }
+
+        code,
+        kbd,
+        pre,
+        samp {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            font-size: 1em
+        }
+
+        small {
+            font-size: 80%
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        table {
+            text-indent: 0;
+            border-color: inherit;
+            border-collapse: collapse
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            font-family: inherit;
+            font-feature-settings: inherit;
+            font-variation-settings: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0
+        }
+
+        button,
+        select {
+            text-transform: none
+        }
+
+        button,
+        input:where([type=button]),
+        input:where([type=reset]),
+        input:where([type=submit]) {
+            -webkit-appearance: button;
+            background-color: transparent;
+            background-image: none
+        }
+
+        :-moz-focusring {
+            outline: auto
+        }
+
+        :-moz-ui-invalid {
+            box-shadow: none
+        }
+
+        progress {
+            vertical-align: baseline
+        }
+
+        ::-webkit-inner-spin-button,
+        ::-webkit-outer-spin-button {
+            height: auto
+        }
+
+        [type=search] {
+            -webkit-appearance: textfield;
+            outline-offset: -2px
+        }
+
+        ::-webkit-search-decoration {
+            -webkit-appearance: none
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit
+        }
+
+        summary {
+            display: list-item
+        }
+
+        blockquote,
+        dd,
+        dl,
+        figure,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        hr,
+        p,
+        pre {
+            margin: 0
+        }
+
+        fieldset {
+            margin: 0;
+            padding: 0
+        }
+
+        legend {
+            padding: 0
+        }
+
+        menu,
+        ol,
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        dialog {
+            padding: 0
+        }
+
+        textarea {
+            resize: vertical
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            opacity: 1;
+            color: #9ca3af
+        }
+
+        [role=button],
+        button {
+            cursor: pointer
+        }
+
+        :disabled {
+            cursor: default
+        }
+
+        audio,
+        canvas,
+        embed,
+        iframe,
+        img,
+        object,
+        svg,
+        video {
+            display: block;
+            vertical-align: middle
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto
+        }
+
+        [hidden]:where(:not([hidden=until-found])) {
+            display: none
+        }
+
+        .fixed {
+            position: fixed
+        }
+
+        .absolute {
+            position: absolute
+        }
+
+        .relative {
+            position: relative
+        }
+
+        .-inset-4 {
+            inset: -1rem
+        }
+
+        .-bottom-10 {
+            bottom: -2.5rem
+        }
+
+        .-right-10 {
+            right: -2.5rem
+        }
+
+        .bottom-2 {
+            bottom: 0.5rem
+        }
+
+        .left-0 {
+            left: 0px
+        }
+
+        .left-4 {
+            left: 1rem
+        }
+
+        .left-\[11px\] {
+            left: 11px
+        }
+
+        .right-0 {
+            right: 0px
+        }
+
+        .right-4 {
+            right: 1rem
+        }
+
+        .top-0 {
+            top: 0px
+        }
+
+        .top-1\.5 {
+            top: 0.375rem
+        }
+
+        .top-12 {
+            top: 3rem
+        }
+
+        .top-2 {
+            top: 0.5rem
+        }
+
+        .z-10 {
+            z-index: 10
+        }
+
+        .z-50 {
+            z-index: 50
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem
+        }
+
+        .mb-12 {
+            margin-bottom: 3rem
+        }
+
+        .mb-16 {
+            margin-bottom: 4rem
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem
+        }
+
+        .mt-4 {
+            margin-top: 1rem
+        }
+
+        .flex {
+            display: flex
+        }
+
+        .inline-flex {
+            display: inline-flex
+        }
+
+        .grid {
+            display: grid
+        }
+
+        .hidden {
+            display: none
+        }
+
+        .h-1 {
+            height: 0.25rem
+        }
+
+        .h-10 {
+            height: 2.5rem
+        }
+
+        .h-16 {
+            height: 4rem
+        }
+
+        .h-2 {
+            height: 0.5rem
+        }
+
+        .h-3 {
+            height: 0.75rem
+        }
+
+        .h-40 {
+            height: 10rem
+        }
+
+        .h-\[600px\] {
+            height: 600px
+        }
+
+        .h-full {
+            height: 100%
+        }
+
+        .min-h-\[300px\] {
+            min-height: 300px
+        }
+
+        .min-h-screen {
+            min-height: 100vh
+        }
+
+        .w-0\.5 {
+            width: 0.125rem
+        }
+
+        .w-10 {
+            width: 2.5rem
+        }
+
+        .w-2 {
+            width: 0.5rem
+        }
+
+        .w-3 {
+            width: 0.75rem
+        }
+
+        .w-40 {
+            width: 10rem
+        }
+
+        .w-\[41\.2\%\] {
+            width: 41.2%
+        }
+
+        .w-\[62\.4\%\] {
+            width: 62.4%
+        }
+
+        .w-\[65\.2\%\] {
+            width: 65.2%
+        }
+
+        .w-\[67\.9\%\] {
+            width: 67.9%
+        }
+
+        .w-\[68\%\] {
+            width: 68%
+        }
+
+        .w-\[72\.8\%\] {
+            width: 72.8%
+        }
+
+        .w-full {
+            width: 100%
+        }
+
+        .max-w-2xl {
+            max-width: 42rem
+        }
+
+        .max-w-7xl {
+            max-width: 80rem
+        }
+
+        .max-w-lg {
+            max-width: 32rem
+        }
+
+        .max-w-xl {
+            max-width: 36rem
+        }
+
+        .flex-grow {
+            flex-grow: 1
+        }
+
+        .rotate-2 {
+            --tw-rotate: 2deg;
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+        }
+
+        .transform {
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+        }
+
+        @keyframes ping {
+
+            75%,
+            100% {
+                transform: scale(2);
+                opacity: 0
+            }
+        }
+
+        .animate-ping {
+            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite
+        }
+
+        .cursor-pointer {
+            cursor: pointer
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr))
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+        }
+
+        .flex-col {
+            flex-direction: column
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap
+        }
+
+        .items-start {
+            align-items: flex-start
+        }
+
+        .items-center {
+            align-items: center
+        }
+
+        .justify-center {
+            justify-content: center
+        }
+
+        .justify-between {
+            justify-content: space-between
+        }
+
+        .gap-1 {
+            gap: 0.25rem
+        }
+
+        .gap-1\.5 {
+            gap: 0.375rem
+        }
+
+        .gap-12 {
+            gap: 3rem
+        }
+
+        .gap-2 {
+            gap: 0.5rem
+        }
+
+        .gap-3 {
+            gap: 0.75rem
+        }
+
+        .gap-4 {
+            gap: 1rem
+        }
+
+        .gap-6 {
+            gap: 1.5rem
+        }
+
+        .gap-8 {
+            gap: 2rem
+        }
+
+        .space-y-3> :not([hidden])~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(0.75rem * var(--tw-space-y-reverse))
+        }
+
+        .space-y-4> :not([hidden])~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(1rem * var(--tw-space-y-reverse))
+        }
+
+        .space-y-6> :not([hidden])~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(1.5rem * var(--tw-space-y-reverse))
+        }
+
+        .divide-y> :not([hidden])~ :not([hidden]) {
+            --tw-divide-y-reverse: 0;
+            border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+            border-bottom-width: calc(1px * var(--tw-divide-y-reverse))
+        }
+
+        .divide-gray-100> :not([hidden])~ :not([hidden]) {
+            --tw-divide-opacity: 1;
+            border-color: rgb(243 244 246 / var(--tw-divide-opacity, 1))
+        }
+
+        .divide-gray-800> :not([hidden])~ :not([hidden]) {
+            --tw-divide-opacity: 1;
+            border-color: rgb(31 41 55 / var(--tw-divide-opacity, 1))
+        }
+
+        .overflow-auto {
+            overflow: auto
+        }
+
+        .overflow-hidden {
+            overflow: hidden
+        }
+
+        .overflow-x-auto {
+            overflow-x: auto
+        }
+
+        .overflow-y-auto {
+            overflow-y: auto
+        }
+
+        .rounded {
+            border-radius: 0.25rem
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem
+        }
+
+        .rounded-full {
+            border-radius: 9999px
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem
+        }
+
+        .rounded-md {
+            border-radius: 0.375rem
+        }
+
+        .rounded-xl {
+            border-radius: 0.75rem
+        }
+
+        .rounded-t-2xl {
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem
+        }
+
+        .border {
+            border-width: 1px
+        }
+
+        .border-2 {
+            border-width: 2px
+        }
+
+        .border-y {
+            border-top-width: 1px;
+            border-bottom-width: 1px
+        }
+
+        .border-b {
+            border-bottom-width: 1px
+        }
+
+        .border-t {
+            border-top-width: 1px
+        }
+
+        .border-\[\#3e3e3e\] {
+            --tw-border-opacity: 1;
+            border-color: rgb(62 62 62 / var(--tw-border-opacity, 1))
+        }
+
+        .border-blue-100 {
+            --tw-border-opacity: 1;
+            border-color: rgb(219 234 254 / var(--tw-border-opacity, 1))
+        }
+
+        .border-gray-100 {
+            --tw-border-opacity: 1;
+            border-color: rgb(243 244 246 / var(--tw-border-opacity, 1))
+        }
+
+        .border-gray-200 {
+            --tw-border-opacity: 1;
+            border-color: rgb(229 231 235 / var(--tw-border-opacity, 1))
+        }
+
+        .border-gray-800 {
+            --tw-border-opacity: 1;
+            border-color: rgb(31 41 55 / var(--tw-border-opacity, 1))
+        }
+
+        .border-white {
+            --tw-border-opacity: 1;
+            border-color: rgb(255 255 255 / var(--tw-border-opacity, 1))
+        }
+
+        .bg-\[\#080808\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(8 8 8 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-\[\#1e1e1e\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(30 30 30 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-\[\#252526\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(37 37 38 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-\[\#27c93f\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(39 201 63 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-\[\#ff5f56\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 95 86 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-\[\#ffbd2e\] {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 189 46 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-blue-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-blue-400 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(96 165 250 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-blue-50 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-blue-50\/30 {
+            background-color: rgb(239 246 255 / 0.3)
+        }
+
+        .bg-blue-50\/50 {
+            background-color: rgb(239 246 255 / 0.5)
+        }
+
+        .bg-blue-500 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-blue-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-200 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-50 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-700\/50 {
+            background-color: rgb(55 65 81 / 0.5)
+        }
+
+        .bg-gray-800 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-gray-900 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-green-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-green-500\/5 {
+            background-color: rgb(34 197 94 / 0.05)
+        }
+
+        .bg-indigo-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(224 231 255 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-indigo-500 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(99 102 241 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-purple-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-white\/90 {
+            background-color: rgb(255 255 255 / 0.9)
+        }
+
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops))
+        }
+
+        .bg-gradient-to-tr {
+            background-image: linear-gradient(to top right, var(--tw-gradient-stops))
+        }
+
+        .from-blue-100 {
+            --tw-gradient-from: #dbeafe var(--tw-gradient-from-position);
+            --tw-gradient-to: rgb(219 234 254 / 0) var(--tw-gradient-to-position);
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+        }
+
+        .from-blue-500 {
+            --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
+            --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+        }
+
+        .from-blue-600 {
+            --tw-gradient-from: #2563eb var(--tw-gradient-from-position);
+            --tw-gradient-to: rgb(37 99 235 / 0) var(--tw-gradient-to-position);
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
+        }
+
+        .to-indigo-50 {
+            --tw-gradient-to: #eef2ff var(--tw-gradient-to-position)
+        }
+
+        .to-indigo-500 {
+            --tw-gradient-to: #6366f1 var(--tw-gradient-to-position)
+        }
+
+        .to-indigo-600 {
+            --tw-gradient-to: #4f46e5 var(--tw-gradient-to-position)
+        }
+
+        .bg-clip-text {
+            -webkit-background-clip: text;
+            background-clip: text
+        }
+
+        .object-cover {
+            object-fit: cover
+        }
+
+        .p-1 {
+            padding: 0.25rem
+        }
+
+        .p-2 {
+            padding: 0.5rem
+        }
+
+        .p-3 {
+            padding: 0.75rem
+        }
+
+        .p-4 {
+            padding: 1rem
+        }
+
+        .p-6 {
+            padding: 1.5rem
+        }
+
+        .p-8 {
+            padding: 2rem
+        }
+
+        .px-1 {
+            padding-left: 0.25rem;
+            padding-right: 0.25rem
+        }
+
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem
+        }
+
+        .py-0\.5 {
+            padding-top: 0.125rem;
+            padding-bottom: 0.125rem
+        }
+
+        .py-1 {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem
+        }
+
+        .py-1\.5 {
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem
+        }
+
+        .py-12 {
+            padding-top: 3rem;
+            padding-bottom: 3rem
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem
+        }
+
+        .py-24 {
+            padding-top: 6rem;
+            padding-bottom: 6rem
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem
+        }
+
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem
+        }
+
+        .pl-10 {
+            padding-left: 2.5rem
+        }
+
+        .pr-2 {
+            padding-right: 0.5rem
+        }
+
+        .pt-16 {
+            padding-top: 4rem
+        }
+
+        .pt-4 {
+            padding-top: 1rem
+        }
+
+        .text-left {
+            text-align: left
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .align-middle {
+            vertical-align: middle
+        }
+
+        .font-mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+            line-height: 2.5rem
+        }
+
+        .text-9xl {
+            font-size: 8rem;
+            line-height: 1
+        }
+
+        .text-\[10px\] {
+            font-size: 10px
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem
+        }
+
+        .font-bold {
+            font-weight: 700
+        }
+
+        .font-medium {
+            font-weight: 500
+        }
+
+        .font-semibold {
+            font-weight: 600
+        }
+
+        .uppercase {
+            text-transform: uppercase
+        }
+
+        .leading-relaxed {
+            line-height: 1.625
+        }
+
+        .leading-tight {
+            line-height: 1.25
+        }
+
+        .tracking-tight {
+            letter-spacing: -0.025em
+        }
+
+        .tracking-wider {
+            letter-spacing: 0.05em
+        }
+
+        .tracking-widest {
+            letter-spacing: 0.1em
+        }
+
+        .text-\[\#080808\] {
+            --tw-text-opacity: 1;
+            color: rgb(8 8 8 / var(--tw-text-opacity, 1))
+        }
+
+        .text-blue-400 {
+            --tw-text-opacity: 1;
+            color: rgb(96 165 250 / var(--tw-text-opacity, 1))
+        }
+
+        .text-blue-500 {
+            --tw-text-opacity: 1;
+            color: rgb(59 130 246 / var(--tw-text-opacity, 1))
+        }
+
+        .text-blue-600 {
+            --tw-text-opacity: 1;
+            color: rgb(37 99 235 / var(--tw-text-opacity, 1))
+        }
+
+        .text-blue-700 {
+            --tw-text-opacity: 1;
+            color: rgb(29 78 216 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-400 {
+            --tw-text-opacity: 1;
+            color: rgb(156 163 175 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-500 {
+            --tw-text-opacity: 1;
+            color: rgb(107 114 128 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-600 {
+            --tw-text-opacity: 1;
+            color: rgb(75 85 99 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-700 {
+            --tw-text-opacity: 1;
+            color: rgb(55 65 81 / var(--tw-text-opacity, 1))
+        }
+
+        .text-gray-900 {
+            --tw-text-opacity: 1;
+            color: rgb(17 24 39 / var(--tw-text-opacity, 1))
+        }
+
+        .text-green-400 {
+            --tw-text-opacity: 1;
+            color: rgb(74 222 128 / var(--tw-text-opacity, 1))
+        }
+
+        .text-green-500 {
+            --tw-text-opacity: 1;
+            color: rgb(34 197 94 / var(--tw-text-opacity, 1))
+        }
+
+        .text-green-600 {
+            --tw-text-opacity: 1;
+            color: rgb(22 163 74 / var(--tw-text-opacity, 1))
+        }
+
+        .text-indigo-400 {
+            --tw-text-opacity: 1;
+            color: rgb(129 140 248 / var(--tw-text-opacity, 1))
+        }
+
+        .text-indigo-500 {
+            --tw-text-opacity: 1;
+            color: rgb(99 102 241 / var(--tw-text-opacity, 1))
+        }
+
+        .text-indigo-600 {
+            --tw-text-opacity: 1;
+            color: rgb(79 70 229 / var(--tw-text-opacity, 1))
+        }
+
+        .text-purple-600 {
+            --tw-text-opacity: 1;
+            color: rgb(147 51 234 / var(--tw-text-opacity, 1))
+        }
+
+        .text-transparent {
+            color: transparent
+        }
+
+        .text-white {
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+        }
+
+        .text-yellow-500 {
+            --tw-text-opacity: 1;
+            color: rgb(234 179 8 / var(--tw-text-opacity, 1))
+        }
+
+        .antialiased {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        .opacity-0 {
+            opacity: 0
+        }
+
+        .opacity-10 {
+            opacity: 0.1
+        }
+
+        .opacity-60 {
+            opacity: 0.6
+        }
+
+        .opacity-75 {
+            opacity: 0.75
+        }
+
+        .shadow-2xl {
+            --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .shadow-lg {
+            --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .shadow-sm {
+            --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .ring-2 {
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+        }
+
+        .ring-gray-100 {
+            --tw-ring-opacity: 1;
+            --tw-ring-color: rgb(243 244 246 / var(--tw-ring-opacity, 1))
+        }
+
+        .blur-3xl {
+            --tw-blur: blur(64px);
+            filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+        }
+
+        .blur-lg {
+            --tw-blur: blur(16px);
+            filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+        }
+
+        .backdrop-blur-sm {
+            --tw-backdrop-blur: blur(4px);
+            -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+            backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms
+        }
+
+        .transition-opacity {
+            transition-property: opacity;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms
+        }
+
+        .duration-300 {
+            transition-duration: 300ms
+        }
+
+        .hover\:-translate-y-0\.5:hover {
+            --tw-translate-y: -0.125rem;
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+        }
+
+        .hover\:border-blue-400:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(96 165 250 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:border-blue-500:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(59 130 246 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:border-gray-700:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(55 65 81 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:border-green-500:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(34 197 94 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:border-indigo-500:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(99 102 241 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:border-purple-500:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(168 85 247 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:bg-blue-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-gray-50:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-gray-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-gray-800:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:text-black:hover {
+            --tw-text-opacity: 1;
+            color: rgb(0 0 0 / var(--tw-text-opacity, 1))
+        }
+
+        .hover\:text-gray-900:hover {
+            --tw-text-opacity: 1;
+            color: rgb(17 24 39 / var(--tw-text-opacity, 1))
+        }
+
+        .hover\:text-red-500:hover {
+            --tw-text-opacity: 1;
+            color: rgb(239 68 68 / var(--tw-text-opacity, 1))
+        }
+
+        .hover\:shadow-md:hover {
+            --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .hover\:shadow-xl:hover {
+            --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .group:hover .group-hover\:bg-blue-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1))
+        }
+
+        .group:hover .group-hover\:bg-green-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1))
+        }
+
+        .group:hover .group-hover\:bg-indigo-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(79 70 229 / var(--tw-bg-opacity, 1))
+        }
+
+        .group:hover .group-hover\:bg-purple-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(147 51 234 / var(--tw-bg-opacity, 1))
+        }
+
+        .group:hover .group-hover\:text-white {
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+        }
+
+        .group:hover .group-hover\:opacity-100 {
+            opacity: 1
+        }
+
+        .group:hover .group-hover\:opacity-20 {
+            opacity: 0.2
+        }
+
+        @media (min-width: 640px) {
+            .sm\:px-6 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem
+            }
+        }
+
+        @media (min-width: 768px) {
+            .md\:flex {
+                display: flex
+            }
+
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+
+            .md\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr))
+            }
+
+            .md\:flex-row {
+                flex-direction: row
+            }
+
+            .md\:items-end {
+                align-items: flex-end
+            }
+
+            .md\:divide-x> :not([hidden])~ :not([hidden]) {
+                --tw-divide-x-reverse: 0;
+                border-right-width: calc(1px * var(--tw-divide-x-reverse));
+                border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)))
+            }
+
+            .md\:divide-y-0> :not([hidden])~ :not([hidden]) {
+                --tw-divide-y-reverse: 0;
+                border-top-width: calc(0px * calc(1 - var(--tw-divide-y-reverse)));
+                border-bottom-width: calc(0px * var(--tw-divide-y-reverse))
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:col-span-4 {
+                grid-column: span 4 / span 4
+            }
+
+            .lg\:col-span-8 {
+                grid-column: span 8 / span 8
+            }
+
+            .lg\:mb-0 {
+                margin-bottom: 0px
+            }
+
+            .lg\:grid {
+                display: grid
+            }
+
+            .lg\:grid-cols-12 {
+                grid-template-columns: repeat(12, minmax(0, 1fr))
+            }
+
+            .lg\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+
+            .lg\:gap-16 {
+                gap: 4rem
+            }
+
+            .lg\:px-8 {
+                padding-left: 2rem;
+                padding-right: 2rem
+            }
+
+            .lg\:py-32 {
+                padding-top: 8rem;
+                padding-bottom: 8rem
+            }
+
+            .lg\:text-6xl {
+                font-size: 3.75rem;
+                line-height: 1
+            }
+        }
+    </style>
+    <link type="text/css"
+        href="https://fonts.googleapis.com/css2?family=Google+Symbols:opsz,wght,FILL,GRAD,ROND@24,400,0,0,50&amp;icon_names=link"
+        rel="stylesheet">
+    <style id="dyn-img-link-styles-di-script">
+        .dyn-img-link-wrapper-di-script {
+            anchor-scope: all;
+            display: contents;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dyn-img-link-wrapper-di-script img {
+            anchor-name: --photo;
+            display: block;
+            max-width: 100%;
+        }
+
+        .dyn-img-link-di-script {
+            z-index: 999999;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 9999px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: white;
+            height: clamp(13px, calc(max(anchor-size(width), anchor-size(height)) * 0.3), 21px);
+            width: clamp(13px, calc(max(anchor-size(width), anchor-size(height)) * 0.3), 21px);
+            padding: 4px;
+            position: absolute;
+
+            bottom: anchor(bottom);
+            left: anchor(left);
+            margin-left: 10px;
+            margin-bottom: 10px;
+
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .dyn-img-link-di-script:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .dyn-img-link-di-script span {
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        .dyn-img-attribution-button-di-script {
+            z-index: 999999;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 9999px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: white;
+            width: clamp(13px, calc(max(anchor-size(width), anchor-size(height)) * 0.3), 21px);
+            height: clamp(13px, calc(max(anchor-size(width), anchor-size(height)) * 0.3), 21px);
+            padding: 4px;
+
+            position: absolute;
+            position-anchor: --photo;
+            top: anchor(top);
+            right: anchor(right);
+            margin-top: 10px;
+            margin-right: 10px;
+
+            transition: background-color 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dyn-img-attribution-button-di-script:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .dyn-img-attribution-button-di-script span {
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        .dyn-img-inline-attribution-di-script {
+            z-index: 999999;
+            font-size: 12px;
+            padding: 4px;
+            display: none;
+
+            position: absolute;
+            position-anchor: --photo;
+            bottom: anchor(bottom);
+            right: anchor(right);
+            margin-bottom: 8px;
+            margin-right: 8px;
+
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: right;
+
+            white-space: nowrap;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 9999px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🙌</span>
+                <span class="font-bold text-xl tracking-tight">OpenHands SDK</span>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+                <a href="#architecture" class="nav-link hover:text-black transition-colors">Architecture</a>
+                <a href="#code-demo" class="nav-link hover:text-black transition-colors">Code</a>
+                <a href="#event-sourcing" class="nav-link hover:text-black transition-colors">Events</a>
+                <a href="#benchmarks" class="nav-link hover:text-black transition-colors">Benchmarks</a>
+            </nav>
+            <a href="https://github.com/OpenHands/software-agent-sdk" target="_blank"
+                class="bg-[#080808] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-2">
+                <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                    </path>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="flex-grow pt-16">
+        <section class="relative overflow-hidden bg-white border-b border-gray-100 hero-pattern py-24 lg:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                    <div class="mb-12 lg:mb-0">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-6 border border-blue-100">
+                            <span class="relative flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                            </span>
+                            Now v1.0 Production Ready
+                        </div>
+                        <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-[#080808] mb-6 leading-tight">
+                            Build agents that <br>
+                            <span
+                                class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">actually
+                                work.</span>
+                        </h1>
+                        <p class="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
+                            The OpenHands Software Agent SDK is the modular, type-safe foundation for building
+                            production-grade AI software engineers. Move from prototype to production with a single line
+                            of code.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#code-demo"
+                                class="px-6 py-3 bg-[#080808] text-white font-medium rounded-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                Start Building
+                            </a>
+                            <a href="#architecture"
+                                class="px-6 py-3 bg-white text-gray-700 border border-gray-200 font-medium rounded-lg hover:bg-gray-50 transition-all">
+                                Explore Architecture
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div
+                            class="absolute -inset-4 bg-gradient-to-tr from-blue-100 to-indigo-50 rounded-2xl transform rotate-2 blur-lg opacity-60">
+                        </div>
+                        <img src="hero-illustration.png" alt="OpenHands Modular Architecture Illustration"
+                            class="relative rounded-xl shadow-2xl border border-gray-100 w-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem/Solution Stats -->
+        <section class="py-12 bg-[#080808] text-white border-y border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-gray-800 text-center">
+                    <div class="p-4">
+                        <div class="text-4xl font-bold text-blue-500 mb-2">64k+</div>
+                        <div class="text-gray-400 text-sm uppercase tracking-wider">GitHub Stars</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl font-bold text-indigo-500 mb-2">100+</div>
+                        <div class="text-gray-400 text-sm uppercase tracking-wider">LLM Models Supported</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl font-bold text-green-500 mb-2">72.8%</div>
+                        <div class="text-gray-400 text-sm uppercase tracking-wider">SWE-Bench Verified</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Interactive -->
+        <section id="architecture" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-[#080808] mb-4">Modular by Design</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        OpenHands V1 moves away from the monolithic legacy of V0. The SDK is split into four
+                        independent, composable packages that let you opt-in to complexity only when needed.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <!-- Diagram -->
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 relative">
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Package 1 -->
+                            <div onclick="selectPackage('sdk')"
+                                class="cursor-pointer group p-6 bg-white rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-md transition-all active-package"
+                                id="pkg-sdk">
+                                <div
+                                    class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">api</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1">openhands.sdk</h3>
+                                <p class="text-xs text-gray-500">Core abstractions &amp; Event System</p>
+                            </div>
+
+                            <!-- Package 2 -->
+                            <div onclick="selectPackage('tools')"
+                                class="cursor-pointer group p-6 bg-white rounded-xl border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all"
+                                id="pkg-tools">
+                                <div
+                                    class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-4 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">construction</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1">openhands.tools</h3>
+                                <p class="text-xs text-gray-500">Standard &amp; MCP Tool Implementations</p>
+                            </div>
+
+                            <!-- Package 3 -->
+                            <div onclick="selectPackage('workspace')"
+                                class="cursor-pointer group p-6 bg-white rounded-xl border border-gray-200 hover:border-green-500 hover:shadow-md transition-all"
+                                id="pkg-workspace">
+                                <div
+                                    class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-4 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">terminal</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1">openhands.workspace</h3>
+                                <p class="text-xs text-gray-500">Local &amp; Remote Environments</p>
+                            </div>
+
+                            <!-- Package 4 -->
+                            <div onclick="selectPackage('server')"
+                                class="cursor-pointer group p-6 bg-white rounded-xl border border-gray-200 hover:border-purple-500 hover:shadow-md transition-all"
+                                id="pkg-server">
+                                <div
+                                    class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">dns</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1">openhands.server</h3>
+                                <p class="text-xs text-gray-500">REST &amp; WebSocket API</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description Panel -->
+                    <div class="flex flex-col justify-center h-full">
+                        <div id="pkg-desc-container"
+                            class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm h-full min-h-[300px] transition-all duration-300">
+                            <!-- Dynamic Content Loaded Here -->
+                            <div class="flex items-center gap-3 mb-4 text-blue-600">
+                                <span class="material-symbols-outlined text-3xl">api</span>
+                                <h3 class="text-2xl font-bold text-gray-900">openhands.sdk</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                The heart of the framework. It defines the core <span
+                                    class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Agent</span>, <span
+                                    class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Conversation</span>, and
+                                <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">LLM</span> abstractions.
+                                It manages the <strong>Event Stream</strong>, treating all interactions as immutable
+                                events. It is completely environment-agnostic.
+                            </p>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-2 text-sm text-gray-700">
+                                    <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Stateless by default
+                                </li>
+                                <li class="flex items-center gap-2 text-sm text-gray-700">
+                                    <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Type-safe Event definitions
+                                </li>
+                                <li class="flex items-center gap-2 text-sm text-gray-700">
+                                    <span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                    Immutable configuration
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Code Demo -->
+        <section id="code-demo" class="py-24 bg-gray-50 border-y border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-[#080808] mb-4">Local to Remote in One Line</h2>
+                        <p class="text-gray-600 max-w-xl">
+                            Prototype locally with zero friction. Deploy to production containers with a single
+                            configuration change. The agent logic remains exactly the same.
+                        </p>
+                    </div>
+
+                    <!-- Toggle Switch -->
+                    <div class="bg-gray-200 p-1 rounded-lg inline-flex">
+                        <button onclick="toggleCode('local')" id="btn-local"
+                            class="px-6 py-2 rounded-md text-sm font-medium transition-all bg-white text-gray-900 shadow-sm">Local
+                            Prototype</button>
+                        <button onclick="toggleCode('remote')" id="btn-remote"
+                            class="px-6 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 transition-all">Remote
+                            Production</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Code Window -->
+                    <div class="lg:col-span-8">
+                        <div class="code-block shadow-2xl relative group">
+                            <div
+                                class="flex items-center justify-between px-4 py-3 bg-[#252526] border-b border-[#3e3e3e]">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                    <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                                </div>
+                                <div class="text-xs text-gray-400 font-mono" id="filename-display">app.py (Local)</div>
+                            </div>
+                            <div class="p-4 overflow-x-auto font-mono text-sm leading-relaxed" id="code-content">
+                                <span class="token-keyword">from</span> openhands.sdk <span
+                                    class="token-keyword">import</span> LLM, Conversation
+                                <span class="token-keyword">from</span> openhands.tools.preset.default <span
+                                    class="token-keyword">import</span> get_default_agent
+                                <span class="token-comment"># No workspace import needed for local default</span>
+
+                                <span class="token-comment"># 1. Configure Model</span>
+                                llm = LLM(model=<span class="token-string">"anthropic/claude-sonnet-4.1"</span>,
+                                api_key=<span class="token-string">"..."</span>)
+
+                                <span class="token-comment"># 2. Create Agent</span>
+                                agent = get_default_agent(llm=llm)
+
+                                <span class="token-comment"># 3. Create Conversation (Local by default)</span>
+                                conversation = Conversation(
+                                agent=agent,
+                                workspace=<span class="token-string">"./my_project"</span> <span class="token-comment">#
+                                    Runs on host filesystem</span>
+                                )
+
+                                conversation.send_message(<span class="token-string">"Create a Hello World
+                                    script."</span>)
+                                conversation.run()
+                            </div>
+                            <button onclick="copyCode()"
+                                class="absolute top-12 right-4 p-2 bg-gray-700/50 hover:bg-gray-700 rounded text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span class="material-symbols-outlined text-sm">content_copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Context Info -->
+                    <div class="lg:col-span-4 flex flex-col justify-center">
+                        <div id="code-explanation" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                            <h3 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-green-500">laptop_mac</span>
+                                Local Execution
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-4">The agent runs directly on your machine. Tools execute
+                                in your local shell. Perfect for rapid debugging and simple tasks.</p>
+                            <div class="text-xs font-mono bg-gray-50 p-3 rounded border border-gray-200 text-gray-500">
+                                No Docker required.<br>Direct file access.<br>Instant startup.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Sourcing Visualizer -->
+        <section id="event-sourcing" class="py-24 bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-[#080808] mb-4">Event-Sourced State</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        Every action, thought, and observation is an immutable event. This guarantees reproducibility
+                        and enables features like "time travel" debugging.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 h-[600px]">
+                    <!-- Interactive Timeline -->
+                    <div class="bg-gray-50 rounded-2xl border border-gray-200 p-6 flex flex-col h-full relative">
+                        <div
+                            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-t-2xl">
+                        </div>
+                        <h3 class="font-semibold text-gray-900 mb-4 flex justify-between items-center">
+                            Conversation Timeline
+                            <button onclick="addEventStep()"
+                                class="text-xs bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700 transition-colors flex items-center gap-1 shadow-sm">
+                                <span class="material-symbols-outlined text-sm">play_arrow</span>
+                                Step Agent
+                            </button>
+                        </h3>
+
+                        <div id="event-timeline" class="flex-grow overflow-y-auto pr-2 space-y-4 relative">
+                            <!-- Timeline Line -->
+                            <div class="absolute left-4 top-2 bottom-2 w-0.5 bg-gray-200"></div>
+
+                            <!-- Initial User Message -->
+                            <div class="relative pl-10 cursor-pointer group" onclick="showEventDetails(0)">
+                                <div
+                                    class="absolute left-[11px] top-1.5 w-3 h-3 bg-gray-900 rounded-full border-2 border-white ring-2 ring-gray-100">
+                                </div>
+                                <div
+                                    class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:border-blue-400 hover:shadow-md transition-all">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="text-xs font-bold text-gray-900">UserMessage</span>
+                                        <span class="text-[10px] text-gray-400 font-mono">00:00:01</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">"Check the weather in Tokyo"</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-center">
+                            <button onclick="resetEvents()"
+                                class="text-xs text-gray-500 hover:text-red-500 flex items-center justify-center gap-1 mx-auto">
+                                <span class="material-symbols-outlined text-sm">restart_alt</span> Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- JSON Viewer -->
+                    <div class="bg-[#1e1e1e] rounded-2xl p-6 flex flex-col h-full shadow-2xl relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-gray-400 font-mono text-xs uppercase tracking-widest">Event Data
+                                Payload</span>
+                            <div class="flex gap-1.5">
+                                <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                            </div>
+                        </div>
+                        <div class="flex-grow font-mono text-sm overflow-auto text-green-400" id="json-viewer">
+                            <pre>{
+"id": "evt_101",
+"type": "message_user",
+"content": "Check the weather in Tokyo",
+"timestamp": "2025-11-05T10:00:01Z"
+}</pre>
+                        </div>
+                        <!-- Background decoration -->
+                        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-green-500/5 rounded-full blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benchmark Stats -->
+        <section id="benchmarks" class="py-24 bg-[#080808] text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold mb-4">State-of-the-Art Performance</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">
+                        Rigorous evaluation on industry standard benchmarks confirms the SDK's capability to handle
+                        complex software engineering tasks.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- SWE-Bench -->
+                    <div
+                        class="bg-gray-900 rounded-2xl p-8 border border-gray-800 relative overflow-hidden group hover:border-gray-700 transition-all">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <span class="material-symbols-outlined text-9xl text-white">code</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">SWE-Bench Verified</h3>
+                        <p class="text-gray-400 text-sm mb-8">Software Engineering Resolution Rate</p>
+
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-blue-400 font-medium">Claude Sonnet 4.5 (OpenHands)</span>
+                                    <span class="font-bold">72.8%</span>
+                                </div>
+                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-500 w-[72.8%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-indigo-400 font-medium">GPT-5 (OpenHands)</span>
+                                    <span class="font-bold">68.0%</span>
+                                </div>
+                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-500 w-[68%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-gray-500 font-medium">Qwen3 Coder (OpenHands)</span>
+                                    <span class="font-bold">65.2%</span>
+                                </div>
+                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gray-600 w-[65.2%] rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GAIA -->
+                    <div
+                        class="bg-gray-900 rounded-2xl p-8 border border-gray-800 relative overflow-hidden group hover:border-gray-700 transition-all">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <span class="material-symbols-outlined text-9xl text-white">smart_toy</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">GAIA Benchmark</h3>
+                        <p class="text-gray-400 text-sm mb-8">General AI Assistants (Validation Set)</p>
+
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-blue-400 font-medium">Claude Sonnet 4.5 (OpenHands)</span>
+                                    <span class="font-bold">67.9%</span>
+                                </div>
+                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-500 w-[67.9%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-indigo-400 font-medium">GPT-5 (OpenHands)</span>
+                                    <span class="font-bold">62.4%</span>
+                                </div>
+                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-indigo-500 w-[62.4%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="text-gray-500 font-medium">Qwen3 Coder (OpenHands)</span>
+                                    <span class="font-bold">41.2%</span>
+                                </div>
+                                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gray-600 w-[41.2%] rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Comparison -->
+        <section class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-[#080808] mb-4">Why OpenHands?</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        Compared to vendor-locked SDKs, OpenHands offers true open-source flexibility and
+                        production-ready features out of the box.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto bg-white rounded-2xl shadow-sm border border-gray-200">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-gray-50 text-gray-900 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4 font-bold">Feature</th>
+                                <th class="px-6 py-4 font-bold text-blue-600 bg-blue-50/50">OpenHands SDK</th>
+                                <th class="px-6 py-4 font-medium text-gray-500">OpenAI Agents SDK</th>
+                                <th class="px-6 py-4 font-medium text-gray-500">Claude Agent SDK</th>
+                                <th class="px-6 py-4 font-medium text-gray-500">Google ADK</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-medium text-gray-900">Native Remote Execution</td>
+                                <td class="px-6 py-4 text-green-600 bg-blue-50/30 font-bold"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-medium text-gray-900">Built-in API Server</td>
+                                <td class="px-6 py-4 text-green-600 bg-blue-50/30 font-bold"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-medium text-gray-900">Multi-LLM Routing</td>
+                                <td class="px-6 py-4 text-green-600 bg-blue-50/30 font-bold"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                                <td class="px-6 py-4 text-gray-400"><span
+                                        class="material-symbols-outlined align-middle">close</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-medium text-gray-900">Security Analyzer</td>
+                                <td class="px-6 py-4 text-green-600 bg-blue-50/30 font-bold"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-yellow-500 text-xs">Manual</td>
+                                <td class="px-6 py-4 text-yellow-500 text-xs">Manual</td>
+                                <td class="px-6 py-4 text-yellow-500 text-xs">Guardrails</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-medium text-gray-900">MCP Support</td>
+                                <td class="px-6 py-4 text-green-600 bg-blue-50/30 font-bold"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-green-600"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-green-600"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                                <td class="px-6 py-4 text-green-600"><span
+                                        class="material-symbols-outlined align-middle">check</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🙌</span>
+                <span class="font-bold text-gray-900">OpenHands</span>
+            </div>
+            <div class="flex gap-6 text-sm text-gray-600">
+                <a href="#" class="hover:text-black">Documentation</a>
+                <a href="https://github.com/OpenHands/software-agent-sdk" target="_blank"
+                    class="hover:text-black">GitHub</a>
+                <a href="#" class="hover:text-black">Paper (arXiv)</a>
+                <a href="#" class="hover:text-black">License (MIT)</a>
+            </div>
+            <div class="text-xs text-gray-400">
+                © 2026 OpenHands Project.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Data for Architecture Section
+        const packageData = {
+            'sdk': {
+                title: 'openhands.sdk',
+                icon: 'api',
+                color: 'blue',
+                content: `
+The heart of the framework. It defines the core <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Agent</span>, <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Conversation</span>, and <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">LLM</span> abstractions. 
+It manages the <strong>Event Stream</strong>, treating all interactions as immutable events. It is completely environment-agnostic.
+<ul class="space-y-3 mt-4">
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Stateless by default</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Type-safe Event definitions</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Immutable configuration</li>
+</ul>`
+            },
+            'tools': {
+                title: 'openhands.tools',
+                icon: 'construction',
+                color: 'indigo',
+                content: `
+Contains concrete implementations of tools. Crucially, it seamlessly integrates with the <strong>Model Context Protocol (MCP)</strong>.
+Tools are defined as <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Action</span> -> <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Execution</span> -> <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">Observation</span> flows.
+<ul class="space-y-3 mt-4">
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Standard Bash, File Editor, Browser tools</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Full MCP client integration</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Input Schema Validation</li>
+</ul>`
+            },
+            'workspace': {
+                title: 'openhands.workspace',
+                icon: 'terminal',
+                color: 'green',
+                content: `
+Defines <em>where</em> the agent runs. This package implements the <span class="font-mono text-sm bg-gray-100 px-1 py-0.5 rounded">BaseWorkspace</span> interface.
+Switching between local prototyping and secure containerized execution is as simple as changing the class you instantiate.
+<ul class="space-y-3 mt-4">
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span><strong>LocalWorkspace:</strong> Runs on host machine</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span><strong>DockerWorkspace:</strong> Spawns isolated containers</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span><strong>RemoteWorkspace:</strong> Connects to API Server</li>
+</ul>`
+            },
+            'server': {
+                title: 'openhands.agent_server',
+                icon: 'dns',
+                color: 'purple',
+                content: `
+A production-ready FastAPI server that wraps the SDK for remote usage. It handles multi-tenancy, authentication, and WebSocket event streaming.
+<ul class="space-y-3 mt-4">
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>REST API for conversation management</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>WebSocket for real-time events</li>
+<li class="flex items-center gap-2 text-sm text-gray-700"><span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>Sandboxed execution management</li>
+</ul>`
+            }
+        };
+
+        function selectPackage(pkg) {
+            const container = document.getElementById('pkg-desc-container');
+            const data = packageData[pkg];
+
+            // Reset active states
+            ['sdk', 'tools', 'workspace', 'server'].forEach(k => {
+                const el = document.getElementById(`pkg-${k}`);
+                el.classList.remove(`border-${packageData[k].color}-500`, 'shadow-md');
+            });
+
+            // Set active state
+            const activeEl = document.getElementById(`pkg-${pkg}`);
+            activeEl.classList.add(`border-${data.color}-500`, 'shadow-md');
+
+            // Animate content change
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                container.innerHTML = `
+<div class="flex items-center gap-3 mb-4 text-${data.color}-600">
+<span class="material-symbols-outlined text-3xl">${data.icon}</span>
+<h3 class="text-2xl font-bold text-gray-900">${data.title}</h3>
+</div>
+${data.content}
+`;
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // Code Demo Logic
+        const codeSnippets = {
+            local: `
+<span class="token-keyword">from</span> openhands.sdk <span class="token-keyword">import</span> LLM, Conversation
+<span class="token-keyword">from</span> openhands.tools.preset.default <span class="token-keyword">import</span> get_default_agent
+<span class="token-comment"># No workspace import needed for local default</span>
+
+<span class="token-comment"># 1. Configure Model</span>
+llm = LLM(model=<span class="token-string">"anthropic/claude-sonnet-4.1"</span>, api_key=<span class="token-string">"..."</span>)
+
+<span class="token-comment"># 2. Create Agent</span>
+agent = get_default_agent(llm=llm)
+
+<span class="token-comment"># 3. Create Conversation (Local by default)</span>
+conversation = Conversation(
+agent=agent, 
+workspace=<span class="token-string">"./my_project"</span> <span class="token-comment"># Runs on host filesystem</span>
+)
+
+conversation.send_message(<span class="token-string">"Create a Hello World script."</span>)
+conversation.run()
+`,
+            remote: `
+<span class="token-keyword">from</span> openhands.sdk <span class="token-keyword">import</span> LLM, Conversation
+<span class="token-keyword">from</span> openhands.tools.preset.default <span class="token-keyword">import</span> get_default_agent
+<span class="token-keyword">from</span> openhands.workspace <span class="token-keyword">import</span> DockerWorkspace <span class="token-comment"># Import Workspace</span>
+
+<span class="token-comment"># 1. Configure Model (Unchanged)</span>
+llm = LLM(model=<span class="token-string">"anthropic/claude-sonnet-4.1"</span>, api_key=<span class="token-string">"..."</span>)
+
+<span class="token-comment"># 2. Create Agent (Unchanged)</span>
+agent = get_default_agent(llm=llm)
+
+<span class="token-comment"># 3. Initialize Docker Workspace (The only change!)</span>
+<span class="token-keyword">with</span> DockerWorkspace(base_image=<span class="token-string">"python:3.11"</span>) <span class="token-keyword">as</span> ws:
+conversation = Conversation(
+agent=agent, 
+workspace=ws <span class="token-comment"># Runs in isolated container</span>
+)
+
+conversation.send_message(<span class="token-string">"Create a Hello World script."</span>)
+conversation.run()
+`
+        };
+
+        const codeExplanations = {
+            local: {
+                title: 'Local Execution',
+                icon: 'laptop_mac',
+                text: 'The agent runs directly on your machine. Tools execute in your local shell. Perfect for rapid debugging and simple tasks.',
+                tags: 'No Docker required.<br>Direct file access.<br>Instant startup.'
+            },
+            remote: {
+                title: 'Remote / Docker Execution',
+                icon: 'cloud',
+                text: 'The agent runs inside a secure Docker container. Tools are isolated from your host system. Ideal for running untrusted code or production deployments.',
+                tags: 'Fully sandboxed.<br>Reproducible environment.<br>Production ready.'
+            }
+        };
+
+        function toggleCode(mode) {
+            const btnLocal = document.getElementById('btn-local');
+            const btnRemote = document.getElementById('btn-remote');
+            const content = document.getElementById('code-content');
+            const filename = document.getElementById('filename-display');
+            const explanationDiv = document.getElementById('code-explanation');
+
+            // Button Styles
+            if (mode === 'local') {
+                btnLocal.className = "px-6 py-2 rounded-md text-sm font-medium transition-all bg-white text-gray-900 shadow-sm";
+                btnRemote.className = "px-6 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 transition-all";
+                filename.textContent = 'app.py (Local)';
+            } else {
+                btnRemote.className = "px-6 py-2 rounded-md text-sm font-medium transition-all bg-white text-gray-900 shadow-sm";
+                btnLocal.className = "px-6 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 transition-all";
+                filename.textContent = 'app.py (Remote)';
+            }
+
+            // Content Update
+            content.innerHTML = codeSnippets[mode];
+
+            // Explanation Update
+            const info = codeExplanations[mode];
+            explanationDiv.innerHTML = `
+<h3 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500">${info.icon}</span>
+${info.title}
+</h3>
+<p class="text-sm text-gray-600 mb-4">${info.text}</p>
+<div class="text-xs font-mono bg-gray-50 p-3 rounded border border-gray-200 text-gray-500">
+${info.tags}
+</div>
+`;
+        }
+
+        // Event Sourcing Logic
+        const eventSequence = [
+            {
+                type: 'AgentThink',
+                title: 'Agent Thought',
+                desc: 'Thinking about weather tool...',
+                time: '00:00:02',
+                json: `{
+"id": "evt_102",
+"type": "agent_think",
+"thought": "I need to check the weather in Tokyo. I should use the 'weather_api' tool.",
+"timestamp": "2025-11-05T10:00:02Z"
+}`
+            },
+            {
+                type: 'Action',
+                title: 'ToolCallAction',
+                desc: 'Invoking weather_api("Tokyo")',
+                time: '00:00:03',
+                json: `{
+"id": "evt_103",
+"type": "action_tool_call",
+"tool_name": "weather_api",
+"arguments": {
+"location": "Tokyo, JP",
+"unit": "celsius"
+},
+"timestamp": "2025-11-05T10:00:03Z"
+}`
+            },
+            {
+                type: 'Observation',
+                title: 'ToolObservation',
+                desc: 'Result: 18°C, Cloudy',
+                time: '00:00:04',
+                json: `{
+"id": "evt_104",
+"type": "observation_tool",
+"content": {
+"temp": 18,
+"condition": "Cloudy",
+"humidity": 65
+},
+"status": "success",
+"timestamp": "2025-11-05T10:00:04Z"
+}`
+            },
+            {
+                type: 'AgentMessage',
+                title: 'AgentMessage',
+                desc: 'The weather in Tokyo is 18°C...',
+                time: '00:00:05',
+                json: `{
+"id": "evt_105",
+"type": "message_agent",
+"content": "The current weather in Tokyo is 18°C and cloudy.",
+"timestamp": "2025-11-05T10:00:05Z"
+}`
+            }
+        ];
+
+        let currentEventStep = 0;
+
+        function addEventStep() {
+            if (currentEventStep >= eventSequence.length) return;
+
+            const event = eventSequence[currentEventStep];
+            const timeline = document.getElementById('event-timeline');
+
+            const el = document.createElement('div');
+            el.className = "relative pl-10 cursor-pointer group fade-enter";
+            el.onclick = () => showEventDetails(currentEventStep + 1); // +1 because 0 is user msg
+
+            let colorClass = "border-gray-200";
+            let iconColor = "bg-gray-400";
+
+            if (event.type === 'AgentThink') { colorClass = "border-yellow-200 bg-yellow-50"; iconColor = "bg-yellow-400"; }
+            if (event.type === 'Action') { colorClass = "border-blue-200 bg-blue-50"; iconColor = "bg-blue-500"; }
+            if (event.type === 'Observation') { colorClass = "border-green-200 bg-green-50"; iconColor = "bg-green-500"; }
+
+            el.innerHTML = `
+<div class="absolute left-[11px] top-1.5 w-3 h-3 ${iconColor} rounded-full border-2 border-white ring-2 ring-gray-100"></div>
+<div class="p-3 rounded-lg border ${colorClass} shadow-sm hover:shadow-md transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold text-gray-900">${event.title}</span>
+<span class="text-[10px] text-gray-400 font-mono">${event.time}</span>
+</div>
+<p class="text-sm text-gray-600">${event.desc}</p>
+</div>
+`;
+
+            timeline.appendChild(el);
+
+            // Trigger reflow for animation
+            setTimeout(() => el.classList.add('fade-enter-active'), 10);
+
+            // Auto scroll
+            timeline.scrollTop = timeline.scrollHeight;
+
+            // Show details automatically
+            showJson(event.json);
+
+            currentEventStep++;
+
+            // Play sound if possible
+            if (typeof Tone !== 'undefined' && Tone.Transport.state === 'started') {
+                const synth = new Tone.MembraneSynth().toDestination();
+                synth.triggerAttackRelease("C2", "8n");
+            }
+        }
+
+        function showEventDetails(index) {
+            if (index === 0) {
+                showJson(`{
+"id": "evt_101",
+"type": "message_user",
+"content": "Check the weather in Tokyo",
+"timestamp": "2025-11-05T10:00:01Z"
+}`);
+                return;
+            }
+            // Logic to find correct event from sequence based on step
+            const event = eventSequence[index - 1];
+            if (event) showJson(event.json);
+        }
+
+        function showJson(jsonStr) {
+            document.getElementById('json-viewer').innerHTML = `<pre>${jsonStr}</pre>`;
+        }
+
+        function resetEvents() {
+            const timeline = document.getElementById('event-timeline');
+            // Keep header + user message + button container
+            // Simpler: just reload the initial state logic
+            timeline.innerHTML = `
+<div class="absolute left-4 top-2 bottom-2 w-0.5 bg-gray-200"></div>
+<div class="relative pl-10 cursor-pointer group" onclick="showEventDetails(0)">
+<div class="absolute left-[11px] top-1.5 w-3 h-3 bg-gray-900 rounded-full border-2 border-white ring-2 ring-gray-100"></div>
+<div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:border-blue-400 hover:shadow-md transition-all">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold text-gray-900">UserMessage</span>
+<span class="text-[10px] text-gray-400 font-mono">00:00:01</span>
+</div>
+<p class="text-sm text-gray-600">"Check the weather in Tokyo"</p>
+</div>
+</div>
+`;
+            currentEventStep = 0;
+            showEventDetails(0);
+        }
+
+        function copyCode() {
+            // Implementation of clipboard copy
+            const text = document.getElementById('code-content').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Code copied to clipboard!");
+        }
+
+        // Init
+        toggleCode('local');
+        showEventDetails(0);
+
+        // Simple Tone.js start on click (to enable audio context)
+        document.body.addEventListener('click', async () => {
+            if (typeof Tone !== 'undefined' && Tone.context.state !== 'running') {
+                await Tone.start();
+            }
+        }, { once: true });
+
+    </script>
+
+    <!-- 
+Image List for Pre-loading/Planning:
+"/gen?prompt=abstract+3d+illustration+of+modular+software+blocks+connecting+together+minimalist+tech+style+white+background&aspect=4:3"
+-->
+    <!--
+"/gen?prompt=abstract+3d+illustration+of+modular+software+blocks+connecting+together+minimalist+tech+style+white+background&aspect=4:3"
+-->
+
+
+</body>
+
+</html>
